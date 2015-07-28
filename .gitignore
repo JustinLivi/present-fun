@@ -25,3 +25,8 @@ documentation
 # Dependency directories
 node_modules
 bower_components
+
+# Compiled files
+*.min.js
+*.map
+*.es5.js
