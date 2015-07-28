@@ -1,0 +1,27 @@
+{
+  "name": "backbone-express-template",
+  "version": "0.1.0",
+  "authors": [
+    "Justin Livi <justin@brinkbit.com>"
+  ],
+  "description": "Basic template for node project with backbone as the front-end MVC framework and express on the backen",
+  "main": "app.js",
+  "keywords": [
+    "backbone",
+    "express",
+    "template"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "devDependencies": {
+    "jquery": "~2.1.4",
+    "bootstrap": "~3.3.5",
+    "backbone": "~1.2.1"
+  }
+}

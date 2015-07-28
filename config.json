@@ -1,0 +1,57 @@
+{
+	"src": [ 
+		"client/**/*.js",
+		"server/**/*.js" 
+	],
+
+	"compile": [
+		"client/**/*.js"
+	],
+
+	"core": {
+		"client/core.min.js": [
+            "bower_components/jquery/dist/jquery.js",
+            "bower_components/underscore/underscore.js",
+            "bower_components/backbone/backbone.js",
+            "bower_components/bootstrap/js/affix.js",
+            "bower_components/bootstrap/js/alert.js",
+            "bower_components/bootstrap/js/button.js",
+            "bower_components/bootstrap/js/carousel.js",
+            "bower_components/bootstrap/js/collapse.js",
+            "bower_components/bootstrap/js/dropdown.js",
+            "bower_components/bootstrap/js/modal.js",
+            "bower_components/bootstrap/js/tooltip.js",
+            "bower_components/bootstrap/js/popover.js",
+            "bower_components/bootstrap/js/scrollspy.js",
+            "bower_components/bootstrap/js/tab.js",
+            "bower_components/bootstrap/js/transition.js"
+        ]
+    },
+
+    "views": {
+        "expand": true,
+        "cwd": "client/views/",
+        "src": ["**/*.js", "!**/*.min.js"],
+        "dest": "client/views/",
+        "ext": ".min.js"
+    },
+
+	"karmaTestFiles": [
+		"bower_components/jquery/dist/jquery.js",
+        "bower_components/underscore/underscore.js",
+        "bower_components/backbone/backbone.js",
+        "bower_components/bootstrap/js/affix.js",
+        "bower_components/bootstrap/js/alert.js",
+        "bower_components/bootstrap/js/button.js",
+        "bower_components/bootstrap/js/carousel.js",
+        "bower_components/bootstrap/js/collapse.js",
+        "bower_components/bootstrap/js/dropdown.js",
+        "bower_components/bootstrap/js/modal.js",
+        "bower_components/bootstrap/js/tooltip.js",
+        "bower_components/bootstrap/js/popover.js",
+        "bower_components/bootstrap/js/scrollspy.js",
+        "bower_components/bootstrap/js/tab.js",
+        "bower_components/bootstrap/js/transition.js"
+	]
+
+}
