@@ -5,7 +5,7 @@
     "Justin Livi <justin@brinkbit.com>"
   ],
   "description": "Basic template for node project with backbone as the front-end MVC framework and express on the backen",
-  "main": "app.js",
+  "main": "",
   "keywords": [
     "backbone",
     "express",

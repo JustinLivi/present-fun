@@ -83,9 +83,12 @@ module.exports = function( grunt ) {
         browserify: {
             dist: {
                 options: {
-                    transform: [['babelify', { 'stage': 0 }]]
+                    transform: [['babelify', { 'sourceMaps': 'inline' }]],
+                    browserifyOptions: {
+                        debug: true
+                    }
                 },
-                src: '<%= config.compile %>'
+                files: '<%= config.compile %>'
             }
         },
 
@@ -110,6 +113,7 @@ module.exports = function( grunt ) {
                 configFile: 'karma.conf.js',
                 singleRun: true,
                 autoWatch: false,
+                preprocessors: '<%= config.karmaPreprocess %>'
             }
         }
 
