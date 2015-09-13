@@ -1,2 +1,3 @@
-#es6-backbone-express-template
-> early commit - still missing major pieces of functionality
+#Presentation Template
+> Really basic template for slideshows.
+  Slideshows should be simple, so it works.
