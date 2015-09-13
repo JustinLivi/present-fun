@@ -1,3 +1,2 @@
-#Presentation Template
-> Really basic template for slideshows.
-  Slideshows should be simple, so it works.
+#The Value of Fun
+> Slideshow presentation originally developed for talk at Fullstack Academy
