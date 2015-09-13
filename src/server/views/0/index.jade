@@ -1,0 +1,15 @@
+extends ../../layouts/slides
+
+block head
+    title My Awesome Presentation
+
+block neck
+    link(rel='stylesheet', href='../views/0/style.min.css?#{cacheBreaker}')
+
+block feet
+    script(src='/views/0/index.min.js?#{cacheBreaker}')
+
+block slide
+    .slide
+        h1 My Presentation
+        h2 By Justin Livi

@@ -1,20 +1,22 @@
 module.exports = function( grunt ) {
 
     [
+        'grunt-concurrent',
+        'grunt-newer',
         'grunt-auto-install',
-        'grunt-contrib-jshint',
-        'grunt-contrib-clean',
-        'grunt-git-describe',
-        'grunt-replace',
-        'grunt-contrib-concat',
         'grunt-contrib-uglify',
         'grunt-contrib-watch',
+        'grunt-contrib-cssmin',
+        'grunt-contrib-watch',
         'grunt-jsdoc',
-        'grunt-contrib-copy',
+        'grunt-nodemon',
         'grunt-karma',
-        'grunt-browserify'
+        'grunt-browserify',
+        'grunt-mocha-test'
     ]
     .forEach( grunt.loadNpmTasks );
+
+    require('load-grunt-tasks')(grunt);
 
     grunt.initConfig({
 
@@ -22,11 +24,55 @@ module.exports = function( grunt ) {
 
         config: grunt.file.readJSON( 'config.json' ),
 
-        'git-describe': {
+        concurrent: {
+            dev: {
+                tasks: ['nodemon', 'watch'],
+                options: {
+                    logConcurrentOutput: true
+                }
+            }
+        },
+
+        sass: {
             options: {
-                prop: 'git-version'
+                sourceMap: true
             },
-            dist : {}
+            target: {
+                files: [
+                    {
+                        expand: true,
+                        cwd: "src/client/views/",
+                        src: ["**/*.scss"],
+                        dest: "src/client/views/",
+                        ext: '.css'
+                    },
+                    { 'src/client/core.css': 'src/client/core.scss' }
+                ]
+            }
+        },
+
+        nodemon: {
+            dev: {
+                script: 'src/server/app.js',
+                options: {
+                    nodeArgs: ['--debug'],
+                    watch: ['src/server']
+                }
+            }
+        },
+
+        watch: {
+
+            css: {
+                files: ['**/*.scss'],
+                tasks: ['compileCSS']
+            },
+
+            js: {
+                files: ['src/client/**/*.js', '!src/client/**/*.es5.js', '!src/client/**/*.min.js'],
+                tasks: ['compileJS']
+            }
+
         },
 
         jsdoc : {
@@ -35,48 +81,6 @@ module.exports = function( grunt ) {
             },
             options: {
                 destination: 'documentation',
-            }
-        },
-
-        jshint: {
-            src: '<%= config.src %>'
-        },
-
-        clean: {
-            build: 'build'
-        },
-
-        replace: {
-            build: {
-                options: {
-                    patterns: [
-                        {
-                            match: /(\"version\")(.*?)(\")(.{1,}?)(\")/i,
-                            replacement: '\"version\": \"<%= pkg.version %>\"'
-                        },
-                        {
-                            match: /(\"main\")(.*?)(\")(.{1,}?)(\")/i,
-                            replacement: '\"main\": \"<%= BUILD %>\"'
-                        }
-                    ]
-                },
-                files: [
-                    {
-                        src: 'package.json',
-                        dest: 'package.json'
-                    },
-                    {
-                        src: 'bower.json',
-                        dest: 'bower.json'
-                    }
-                ]
-            }
-        },
-
-        watch: {
-            debug: {
-                files: '<%= config.src %>',
-                tasks: [ 'debug' ]
             }
         },
 
@@ -105,6 +109,26 @@ module.exports = function( grunt ) {
             local: {}
         },
 
+        cssmin: {
+            options: {
+                sourceMap: true
+            },
+            target: {
+                files: [
+                    {
+                        expand: true,
+                        cwd: "src/client/views/",
+                        src: ['**/*.css', '!**/*.min.css'],
+                        dest: "src/client/views/",
+                        ext: '.min.css'
+                    },
+                    {
+                        'src/client/core.min.css': ['src/client/core.css']
+                    }
+                ]
+            }
+        },
+
         karma: {
             options: {
                 files: '<%= config.karmaTestFiles %>'
@@ -115,24 +139,34 @@ module.exports = function( grunt ) {
                 autoWatch: false,
                 preprocessors: '<%= config.karmaPreprocess %>'
             }
+        },
+
+        eslint: {
+            options: {
+                target: ['src/**/*.js']
+            }
+        },
+
+        mochaTest: {
+            specs: {
+                options: {
+                    ui: 'bdd',
+                    reporter: 'spec',
+                    require: './app/test/server/test.spec.js'
+                },
+                src: ['./app/test/server/*.js']
+            }
         }
 
     });
 
-    grunt.registerTask( 'setBuildName' , function() {
-        var version = grunt.config.get( 'pkg.version' );
-        var prefix = grunt.config.get( 'pkg.name' );
-        var name = prefix + '-' + version;
-        grunt.config.set( 'releaseName' , 'build/' + name + '.min.js' );
-        grunt.config.set( 'devName' , 'build/' + name + '.js' );
-    });
-
     grunt.registerTask( 'default', [
-        'install',
-        'jshint',
+        'eslint',
+        'compileJS',
+        'compileCSS',
         'test',
-        'build',
-        'doc'
+        //'doc', 
+        'concurrent'
     ]);
 
     grunt.registerTask( 'install', [
@@ -143,23 +177,19 @@ module.exports = function( grunt ) {
         'karma'
     ]);
 
-    grunt.registerTask( 'build', [
-        'clean',
-        'git-describe',
-        'setBuildName',
-        'replace',
+    grunt.registerTask( 'compileJS', [
         'browserify',
         'uglify',
+
+    ]);
+
+    grunt.registerTask( 'compileCSS', [
+        'sass',
+        'cssmin'
     ]);
 
     grunt.registerTask( 'doc', [
         'jsdoc'
-    ]);
-
-    grunt.registerTask( 'debug', [
-        'jshint',
-        'test',
-        'watch'
     ]);
 
 };
