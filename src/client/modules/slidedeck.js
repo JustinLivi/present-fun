@@ -10,6 +10,24 @@ class SlideDeck {
 		window.open( `/slides/${index}` ,'_self');
 	}
 
+	nextSlide() {
+		try {
+			this.goToSlide( this.index + 1 );
+		}
+		catch ( e ) {
+			console.log( e.message );
+		}
+	}
+
+	previousSlide() {
+		try {
+			this.goToSlide( this.index - 1 );
+		}
+		catch ( e ) {
+			console.log( e.message );
+		}
+	}
+
 }
 
 export default SlideDeck;

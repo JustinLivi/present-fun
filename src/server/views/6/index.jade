@@ -1,0 +1,14 @@
+extends ../../layouts/slides
+
+block head
+    title Brinkbit
+
+block neck
+    link(rel='stylesheet', href='../views/6/style.min.css?#{cacheBreaker}')
+
+block slide
+    .slide
+        iframe(src='http://brinkbit.com')
+
+block feet
+    script(src='../views/6/index.min.js?#{cacheBreaker}')

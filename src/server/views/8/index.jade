@@ -1,0 +1,11 @@
+extends ../../layouts/slides
+
+block head
+    title Brinkbit
+
+block neck
+    link(rel='stylesheet', href='../views/6/style.min.css?#{cacheBreaker}')
+
+block slide
+    .slide
+        iframe(src='https://gabrielecirulli.github.io/2048/')

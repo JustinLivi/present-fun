@@ -1,10 +1,28 @@
 import SlideDeck from './modules/slidedeck.js';
 
-var slideDeck = new SlideDeck( 1, 0 );
+const SLIDECOUNT = 30;
 
-$(window).click( e => {
-	console.log('clicked');
-	slideDeck.goToSlide( 1 );
-});
+var index;
+var slideDeck;
 
-export default slideDeck;
+window.onload = function() {
+	index = parseInt($('#slide-index').html());
+	slideDeck = new SlideDeck( SLIDECOUNT, index );
+
+	$('body').on('keydown', function( event ) {
+		switch ( event.which ) {
+
+			//left
+			case 37:
+				event.preventDefault();
+				slideDeck.previousSlide();
+	        	break;
+
+	        // right
+	        case 39:
+				event.preventDefault();
+	        	slideDeck.nextSlide();
+	        	break;
+		}
+	});
+}
