@@ -1,6 +1,6 @@
 import SlideDeck from './modules/slidedeck.js';
 
-const SLIDECOUNT = 30;
+const SLIDECOUNT = 50;
 
 var index;
 var slideDeck;

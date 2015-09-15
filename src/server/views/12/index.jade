@@ -3,11 +3,6 @@ extends ../../layouts/slides
 block head
     title Graphics
 
-block neck
-    link(rel='stylesheet', href='../views/12/style.min.css?#{cacheBreaker}')
-
 block slide
     .slide 
-        p The traditional approach in real-time computer graphics has been to calculate lighting at a vertex as a sum of the ambient, diffuse, and specular light. In the simplest form (used by OpenGL and Direct3D), the function is simply the sum of these lighting components (clamped to a maximum color value). Thus we have an ambient term and then a sum of all the light from the light sources.
-        img(src='http://flylib.com/books/2/451/1/html/2/images/figu39_1.jpg')
-        p where itotal is the intensity of light (as an rgb value) from the sum of the intensity of the global ambient value and the diffuse and specular components of the light from the light sources.
+        h1 Graphics
